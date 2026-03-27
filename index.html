@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TriNetra – Tourist Safety in Northeast India</title>
+  <meta name="description" content="TriNetra – Your guardian in Northeast India. Geo-fenced safety alerts, SOS emergency button, accommodation finder, weather warnings and heritage etiquette tips for tourists." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Leaflet CSS for map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="#hero" class="nav-logo">
+      <img src="logo.png" alt="TriNetra Logo" class="nav-logo-img" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#geofence" class="nav-link">Safety Zones</a></li>
+      <li><a href="#weather" class="nav-link">Weather</a></li>
+      <li><a href="#etiquette" class="nav-link">Etiquette</a></li>
+      <li><a href="#accommodation" class="nav-link">Stay</a></li>
+      <li><a href="#sos" class="nav-link sos-nav">SOS</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-gradient"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Northeast India Safety Platform
+    </div>
+    <h1 class="hero-title">
+      Your Guardian Eye<br/>
+      <span class="title-gradient">in the Northeast</span>
+    </h1>
+    <p class="hero-subtitle">
+      TriNetra — Sanskrit for "Three Eyes" — watches over every traveller with
+      real-time geo-fencing alerts, instant SOS rescue, and seamless
+      accommodation discovery across all 8 sister states.
+    </p>
+    <div class="hero-ctas">
+      <a href="#geofence" class="btn btn-primary">Explore Safety Map</a>
+      <a href="#sos" class="btn btn-danger pulse-btn">🆘 Emergency SOS</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Sister States</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">120+</span>
+        <span class="stat-label">Geo-Fenced Zones</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">24/7</span>
+        <span class="stat-label">Live Monitoring</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="tri-eye-container">
+      <div class="tri-eye-glow"></div>
+      <img src="logo.png" alt="TriNetra" class="hero-logo-img"/>
+      <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ========== FEATURES STRIP ========== -->
+<section class="features-strip">
+  <div class="strip-card" data-feature="geo">
+    <div class="strip-icon">📍</div>
+    <div class="strip-info">
+      <h3>Geo-Fencing</h3>
+      <p>Real-time zone alerts</p>
+    </div>
+  </div>
+  <div class="strip-card" data-feature="weather">
+    <div class="strip-icon">⛈️</div>
+    <div class="strip-info">
+      <h3>Weather Alerts</h3>
+      <p>Live forecast & warnings</p>
+    </div>
+  </div>
+  <div class="strip-card" data-feature="heritage">
+    <div class="strip-icon">🏛️</div>
+    <div class="strip-info">
+      <h3>Heritage Tips</h3>
+      <p>Cultural etiquette guide</p>
+    </div>
+  </div>
+  <div class="strip-card" data-feature="stay">
+    <div class="strip-icon">🏨</div>
+    <div class="strip-info">
+      <h3>Accommodation</h3>
+      <p>Verified safe stays</p>
+    </div>
+  </div>
+  <div class="strip-card strip-sos" data-feature="sos">
+    <div class="strip-icon">🚨</div>
+    <div class="strip-info">
+      <h3>SOS Button</h3>
+      <p>Instant police alert</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GEO-FENCING ========== -->
+<section class="section geofence-section" id="geofence">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">📍 Zone Safety</span>
+      <h2 class="section-title">Geo-Fencing <span class="accent">Alert System</span></h2>
+      <p class="section-desc">
+        Our intelligent geo-fencing system monitors restricted areas, conflict zones, and
+        sensitive border regions across Northeast India. You receive instant push alerts
+        before entering a high-risk area.
+      </p>
+    </div>
+
+    <div class="geofence-layout">
+      <!-- Map -->
+      <div class="map-wrapper">
+        <div class="map-controls">
+          <button class="map-btn active" data-layer="all" id="btnAll">All Zones</button>
+          <button class="map-btn" data-layer="red" id="btnRed">🔴 High Risk</button>
+          <button class="map-btn" data-layer="orange" id="btnOrange">🟠 Caution</button>
+          <button class="map-btn" data-layer="green" id="btnGreen">🟢 Safe</button>
+        </div>
+        <div id="safetyMap" class="safety-map"></div>
+        <div class="map-legend">
+          <div class="legend-item"><span class="legend-dot red"></span> Restricted / High-Risk</div>
+          <div class="legend-item"><span class="legend-dot orange"></span> Caution Zone</div>
+          <div class="legend-item"><span class="legend-dot green"></span> Tourist-Safe Area</div>
+        </div>
+      </div>
+
+      <!-- Alert Panel -->
+      <div class="alert-panel">
+        <h3 class="panel-title">🔔 Active Zone Alerts</h3>
+        <div class="alert-list" id="alertList">
+          <div class="alert-card alert-red">
+            <div class="alert-header">
+              <span class="alert-badge red">HIGH RISK</span>
+              <span class="alert-time">Active now</span>
+            </div>
+            <h4>Arunachal Border Zone</h4>
+            <p>Restricted military zone – Inner Line Permit mandatory. Foreigners barred entry.</p>
+            <div class="alert-action">
+              <span class="alert-icon">⛔</span> Entry requires special permit
+            </div>
+          </div>
+          <div class="alert-card alert-red">
+            <div class="alert-header">
+              <span class="alert-badge red">HIGH RISK</span>
+              <span class="alert-time">Active now</span>
+            </div>
+            <h4>Manipur Hill Districts</h4>
+            <p>Ongoing civil unrest. Travel advisory in effect. Stay in valley districts only.</p>
+            <div class="alert-action">
+              <span class="alert-icon">⛔</span> Avoid travel – police advisory
+            </div>
+          </div>
+          <div class="alert-card alert-orange">
+            <div class="alert-header">
+              <span class="alert-badge orange">CAUTION</span>
+              <span class="alert-time">Updated 2h ago</span>
+            </div>
+            <h4>Kaziranga Buffer Zones</h4>
+            <p>Wildlife conflict alert. Do not venture beyond designated safari routes after 6 PM.</p>
+            <div class="alert-action">
+              <span class="alert-icon">⚠️</span> Stay on marked trails only
+            </div>
+          </div>
+          <div class="alert-card alert-orange">
+            <div class="alert-header">
+              <span class="alert-badge orange">CAUTION</span>
+              <span class="alert-time">Updated 5h ago</span>
+            </div>
+            <h4>Meghalaya Limestone Caves</h4>
+            <p>Flash flood risk in underground cave systems due to monsoon. Guided visits only.</p>
+            <div class="alert-action">
+              <span class="alert-icon">⚠️</span> Guided tours mandatory
+            </div>
+          </div>
+          <div class="alert-card alert-green">
+            <div class="alert-header">
+              <span class="alert-badge green">SAFE</span>
+              <span class="alert-time">Verified today</span>
+            </div>
+            <h4>Shillong City Centre</h4>
+            <p>All tourist activities cleared. Police presence active along major tourist routes.</p>
+            <div class="alert-action">
+              <span class="alert-icon">✅</span> Safe for tourism
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ILP Info -->
+    <div class="ilp-banner">
+      <div class="ilp-icon">📋</div>
+      <div class="ilp-content">
+        <h3>Inner Line Permit (ILP) – Know Before You Go</h3>
+        <p>Several NE states require an ILP for Indian nationals and Protected Area Permit (PAP) for foreigners. TriNetra auto-checks your itinerary and flags permit requirements.</p>
+      </div>
+      <div class="ilp-states">
+        <span class="ilp-tag">Arunachal Pradesh</span>
+        <span class="ilp-tag">Nagaland</span>
+        <span class="ilp-tag">Manipur</span>
+        <span class="ilp-tag">Mizoram</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WEATHER ========== -->
+<section class="section weather-section" id="weather">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">⛈️ Climate Watch</span>
+      <h2 class="section-title">Live Weather <span class="accent">Warning System</span></h2>
+      <p class="section-desc">
+        Northeast India experiences some of the world's highest rainfall and extreme weather shifts.
+        Real-time alerts help you plan every step of your journey safely.
+      </p>
+    </div>
+
+    <div class="weather-grid">
+      <div class="weather-main-card">
+        <div class="weather-location-selector">
+          <select id="weatherSelect" class="weather-select">
+            <option value="shillong">Shillong, Meghalaya</option>
+            <option value="guwahati">Guwahati, Assam</option>
+            <option value="itanagar">Itanagar, Arunachal Pradesh</option>
+            <option value="kohima">Kohima, Nagaland</option>
+            <option value="imphal">Imphal, Manipur</option>
+            <option value="agartala">Agartala, Tripura</option>
+            <option value="aizawl">Aizawl, Mizoram</option>
+            <option value="gangtok">Gangtok, Sikkim</option>
+          </select>
+        </div>
+        <div class="current-weather" id="currentWeather">
+          <div class="weather-icon-big" id="weatherIcon">⛈️</div>
+          <div class="weather-temp-block">
+            <div class="weather-temp" id="weatherTemp">18°C</div>
+            <div class="weather-condition" id="weatherCond">Heavy Thunderstorm</div>
+            <div class="weather-feels" id="weatherFeels">Feels like 15°C | Humidity 92%</div>
+          </div>
+          <div class="weather-alert-badge" id="weatherAlertBadge">
+            <span>⚠️ WEATHER WARNING ACTIVE</span>
+          </div>
+        </div>
+        <div class="weather-warning-box" id="weatherWarningBox">
+          <h4>🚨 Active Weather Warning</h4>
+          <p id="warningText">Extremely heavy rainfall expected in Meghalaya over next 48 hours. Flash flood risk HIGH in Cherrapunji, Mawsynram & surrounding areas. Tourists advised to avoid hill treks and valley crossings.</p>
+        </div>
+      </div>
+
+      <div class="weather-side">
+        <div class="forecast-strip" id="forecastStrip">
+          <!-- Dynamically generated -->
+        </div>
+        <div class="weather-tips-card">
+          <h4>🧳 Traveller Safety Tips</h4>
+          <ul id="weatherTips">
+            <li>Carry waterproofs at all times – weather shifts in minutes</li>
+            <li>Avoid river crossings during / after heavy rain</li>
+            <li>Check jhum (shifting cultivation) fire smoke visibility</li>
+            <li>Keep emergency contacts saved offline</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Climate Calendar -->
+    <div class="climate-calendar">
+      <h3>📅 Best & Risky Travel Months</h3>
+      <div class="month-grid" id="monthGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ETIQUETTE ========== -->
+<section class="section etiquette-section" id="etiquette">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">🏛️ Cultural Respect</span>
+      <h2 class="section-title">Heritage & Cultural <span class="accent">Etiquette Guide</span></h2>
+      <p class="section-desc">
+        Northeast India is home to 220+ ethnic tribes, ancient monasteries, and UNESCO-listed sites.
+        Respecting local customs is not just courtesy — it's safety.
+      </p>
+    </div>
+
+    <div class="etiquette-tabs">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="general" id="tabGeneral">General</button>
+        <button class="tab-btn" data-tab="religious" id="tabReligious">Religious Sites</button>
+        <button class="tab-btn" data-tab="tribal" id="tabTribal">Tribal Areas</button>
+        <button class="tab-btn" data-tab="wildlife" id="tabWildlife">Wildlife Parks</button>
+        <button class="tab-btn" data-tab="photo" id="tabPhoto">Photography</button>
+      </div>
+      <div class="tab-content" id="tabContent">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <!-- Heritage Sites Showcase -->
+    <div class="sites-showcase">
+      <h3>🗺️ Notable Heritage Sites</h3>
+      <div class="sites-grid" id="sitesGrid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ACCOMMODATION ========== -->
+<section class="section accommodation-section" id="accommodation">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">🏨 Safe Stays</span>
+      <h2 class="section-title">Accommodation <span class="accent">Finder</span></h2>
+      <p class="section-desc">
+        Verified, safety-rated accommodations across all 8 sister states. Every listing is
+        cross-checked with local authorities for tourist safety compliance.
+      </p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="accom-search">
+      <div class="search-row">
+        <div class="search-field">
+          <label>📍 Destination</label>
+          <select id="accomState" class="search-select">
+            <option value="">All States</option>
+            <option>Assam</option>
+            <option>Meghalaya</option>
+            <option>Arunachal Pradesh</option>
+            <option>Nagaland</option>
+            <option>Manipur</option>
+            <option>Tripura</option>
+            <option>Mizoram</option>
+            <option>Sikkim</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label>🏷️ Type</label>
+          <select id="accomType" class="search-select">
+            <option value="">All Types</option>
+            <option>Hotel</option>
+            <option>Homestay</option>
+            <option>Eco Lodge</option>
+            <option>Government Guest House</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label>💰 Budget</label>
+          <select id="accomBudget" class="search-select">
+            <option value="">Any Budget</option>
+            <option>Budget (under ₹1500)</option>
+            <option>Mid-range (₹1500–5000)</option>
+            <option>Premium (₹5000+)</option>
+          </select>
+        </div>
+        <button class="btn btn-primary search-btn" id="searchAccom" onclick="filterAccommodations()">
+          🔍 Find Safe Stays
+        </button>
+      </div>
+    </div>
+
+    <!-- Safety Rating Legend -->
+    <div class="safety-legend">
+      <span>Safety Rating:</span>
+      <span class="safety-chip green">🛡️ Verified Safe</span>
+      <span class="safety-chip yellow">⚠️ Exercise Caution</span>
+      <span class="safety-chip red">🚫 Not Recommended</span>
+    </div>
+
+    <!-- Accommodation Cards -->
+    <div class="accom-grid" id="accomGrid">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+</section>
+
+<!-- ========== SOS ========== -->
+<section class="section sos-section" id="sos">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">🚨 Emergency</span>
+      <h2 class="section-title">SOS Emergency <span class="accent-red">Response</span></h2>
+      <p class="section-desc">
+        Press and hold the SOS button to instantly alert the nearest police station with your
+        live GPS location, travel details, and emergency contacts.
+      </p>
+    </div>
+
+    <div class="sos-layout">
+      <!-- SOS Button Panel -->
+      <div class="sos-main">
+        <div class="sos-ring-container">
+          <div class="sos-ring sos-ring-3"></div>
+          <div class="sos-ring sos-ring-2"></div>
+          <div class="sos-ring sos-ring-1"></div>
+          <button class="sos-button" id="sosButton"
+                  onmousedown="startSOS()" onmouseup="cancelSOS()"
+                  ontouchstart="startSOS()" ontouchend="cancelSOS()">
+            <div class="sos-inner">
+              <span class="sos-label">SOS</span>
+              <span class="sos-sublabel">Hold 3 sec</span>
+            </div>
+            <svg class="sos-progress" viewBox="0 0 120 120">
+              <circle class="sos-track" cx="60" cy="60" r="54"/>
+              <circle class="sos-fill" cx="60" cy="60" r="54" id="sosProgressCircle"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="sos-status" id="sosStatus">
+          <div class="status-indicator status-ready">
+            <span class="status-dot"></span>
+            System Ready – GPS Active
+          </div>
+        </div>
+
+        <div class="sos-info">
+          <div class="sos-info-card">
+            <div class="sos-info-icon">📡</div>
+            <div>
+              <h4>Current Location</h4>
+              <p id="sosLocation">Acquiring GPS signal…</p>
+            </div>
+          </div>
+          <div class="sos-info-card">
+            <div class="sos-info-icon">🚓</div>
+            <div>
+              <h4>Nearest Station</h4>
+              <p id="nearestStation">Detecting nearest station…</p>
+            </div>
+          </div>
+          <div class="sos-info-card">
+            <div class="sos-info-icon">⏱️</div>
+            <div>
+              <h4>Estimated Response</h4>
+              <p id="responseTime">Calculating…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Contacts + What Happens -->
+      <div class="sos-side">
+        <div class="sos-steps-card">
+          <h3>What happens when you press SOS</h3>
+          <ol class="sos-steps">
+            <li><span class="step-num">1</span><div><strong>Location Captured</strong><span>Your GPS coordinates are locked instantly</span></div></li>
+            <li><span class="step-num">2</span><div><strong>Nearest Station Identified</strong><span>AI maps the closest active police post</span></div></li>
+            <li><span class="step-num">3</span><div><strong>Alert Dispatched</strong><span>Encrypted SOS sent with your passport/ID snapshot</span></div></li>
+            <li><span class="step-num">4</span><div><strong>Emergency Contacts Notified</strong><span>Your registered contacts receive a live location link</span></div></li>
+            <li><span class="step-num">5</span><div><strong>Live Tracking Begins</strong><span>Police can track your movement until resolved</span></div></li>
+          </ol>
+        </div>
+
+        <div class="emergency-numbers">
+          <h3>📞 Emergency Helplines</h3>
+          <div class="number-grid">
+            <a href="tel:100" class="number-card">
+              <span class="num-icon">🚓</span>
+              <span class="num-label">Police</span>
+              <span class="num-val">100</span>
+            </a>
+            <a href="tel:108" class="number-card">
+              <span class="num-icon">🚑</span>
+              <span class="num-label">Ambulance</span>
+              <span class="num-val">108</span>
+            </a>
+            <a href="tel:101" class="number-card">
+              <span class="num-icon">🔥</span>
+              <span class="num-label">Fire</span>
+              <span class="num-val">101</span>
+            </a>
+            <a href="tel:1363" class="number-card">
+              <span class="num-icon">🏔️</span>
+              <span class="num-label">Tourist Helpline</span>
+              <span class="num-val">1363</span>
+            </a>
+            <a href="tel:1800111363" class="number-card">
+              <span class="num-icon">✈️</span>
+              <span class="num-label">NE Tourism</span>
+              <span class="num-val">1800-111-363</span>
+            </a>
+            <a href="tel:112" class="number-card">
+              <span class="num-icon">🆘</span>
+              <span class="num-label">Emergency</span>
+              <span class="num-val">112</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SOS MODAL ========== -->
+<div class="sos-modal-overlay" id="sosModal">
+  <div class="sos-modal">
+    <div class="modal-alert-icon">🚨</div>
+    <h2>SOS ALERT SENT</h2>
+    <p>Your emergency alert has been dispatched to <strong id="modalStation">Shillong Police Control Room</strong>.</p>
+    <div class="modal-location">
+      <span>📍 </span><span id="modalLocation">25.5788° N, 91.8933° E</span>
+    </div>
+    <p class="modal-eta">Estimated arrival: <strong>8–12 minutes</strong></p>
+    <div class="modal-actions">
+      <a href="tel:100" class="btn btn-danger">📞 Call Police Now</a>
+      <button class="btn btn-outline" onclick="closeSOS()">Cancel Alert</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="logo.png" alt="TriNetra Logo" class="footer-logo-img" />
+      </div>
+      <p>The vigilant guardian for tourists exploring the extraordinary Northeast India. Safety, Culture, Discovery.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">🐦</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#geofence">Safety Zones</a></li>
+        <li><a href="#weather">Weather Alerts</a></li>
+        <li><a href="#etiquette">Etiquette Guide</a></li>
+        <li><a href="#accommodation">Find Stay</a></li>
+        <li><a href="#sos">SOS Emergency</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>8 Sister States</h4>
+      <ul>
+        <li>Assam</li><li>Meghalaya</li><li>Arunachal Pradesh</li>
+        <li>Nagaland</li><li>Manipur</li><li>Tripura</li>
+        <li>Mizoram</li><li>Sikkim</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Emergency</h4>
+      <ul>
+        <li><a href="tel:100">Police: 100</a></li>
+        <li><a href="tel:108">Ambulance: 108</a></li>
+        <li><a href="tel:1363">Tourist Help: 1363</a></li>
+        <li><a href="tel:112">Emergency: 112</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 TriNetra – Tourist Safety Platform, Northeast India. All rights reserved.</p>
+    <p>🛡️ Empowering safe explorations across the Seven Sister States & Sikkim</p>
+  </div>
+</footer>
+
+<!-- Floating SOS -->
+<button class="floating-sos" id="floatingSOS" onclick="document.getElementById('sos').scrollIntoView({behavior:'smooth'})">
+  🆘
+  <span class="floating-label">SOS</span>
+</button>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
