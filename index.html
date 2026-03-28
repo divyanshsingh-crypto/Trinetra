@@ -27,6 +27,7 @@
       <li><a href="#etiquette" class="nav-link">Etiquette</a></li>
       <li><a href="#accommodation" class="nav-link">Stay</a></li>
       <li><a href="#sos" class="nav-link sos-nav">SOS</a></li>
+      <li><a href="#register" class="nav-link">Register</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -544,6 +545,121 @@
     </div>
   </div>
 </div>
+
+<!-- ========== REGISTRATION ========== -->
+<section class="section register-section" id="register">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">📋 Join TriNetra</span>
+      <h2 class="section-title">Register & <span class="accent">Stay Connected</span></h2>
+      <p class="section-desc">
+        Register with TriNetra to receive personalised safety alerts, zone updates, and
+        emergency assistance across all 8 Northeast sister states. Your data is encrypted
+        and never shared with third parties.
+      </p>
+    </div>
+
+    <div class="register-layout">
+      <!-- Left – Benefits -->
+      <div class="register-benefits">
+        <h3>Why Register?</h3>
+        <div class="benefit-card">
+          <div class="benefit-icon">🔔</div>
+          <div>
+            <h4>Live Safety Alerts</h4>
+            <p>Receive zone-specific warnings directly on your registered email and phone before you enter high-risk areas.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📍</div>
+          <div>
+            <h4>GPS-Linked SOS</h4>
+            <p>Your travel details are pre-loaded into the SOS system for instant rescue without typing under stress.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">🏨</div>
+          <div>
+            <h4>Verified Stay Picks</h4>
+            <p>Get curated, safety-vetted accommodation recommendations tailored to your itinerary and budget.</p>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">📡</div>
+          <div>
+            <h4>Offline Safety Pack</h4>
+            <p>Download regional maps, ILP guides, and emergency contacts for use without internet in remote areas.</p>
+          </div>
+        </div>
+
+        <div class="register-contact-info">
+          <h4>Direct Contact</h4>
+          <div class="contact-row">
+            <span class="contact-icon">📧</span>
+            <a href="mailto:divyanshsingh7907@gmail.com">divyanshsingh7907@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">📱</span>
+            <a href="tel:+919936712737">+91 99367 12737</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right – Form -->
+      <div class="register-form-wrap">
+        <form class="register-form" id="registerForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regName">Full Name *</label>
+              <input type="text" id="regName" name="name" placeholder="e.g. Rajesh Sharma" required />
+            </div>
+            <div class="form-group">
+              <label for="regEmail">Email Address *</label>
+              <input type="email" id="regEmail" name="email" placeholder="you@email.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regPhone">Phone Number</label>
+              <input type="tel" id="regPhone" name="phone" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="form-group">
+              <label for="regState">Destination State</label>
+              <select id="regState" name="destination">
+                <option value="">Select a state…</option>
+                <option>Assam</option>
+                <option>Meghalaya</option>
+                <option>Arunachal Pradesh</option>
+                <option>Nagaland</option>
+                <option>Manipur</option>
+                <option>Tripura</option>
+                <option>Mizoram</option>
+                <option>Sikkim</option>
+                <option>Multiple States</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label for="regMessage">Your Travel Plans / Message *</label>
+            <textarea id="regMessage" name="message" rows="4"
+              placeholder="Tell us about your travel dates, group size, special requirements, or any safety concerns…" required></textarea>
+          </div>
+          <div class="form-group full-width form-check-row">
+            <input type="checkbox" id="regConsent" required />
+            <label for="regConsent">I agree to receive safety alerts and updates from TriNetra. My data will not be sold or shared.</label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary register-btn" id="registerSubmitBtn">
+              <span class="btn-text">🚀 Register with TriNetra</span>
+              <span class="btn-loader" id="registerLoader" style="display:none;">⏳ Sending…</span>
+            </button>
+          </div>
+          <div class="form-feedback" id="formFeedback"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ========== FOOTER ========== -->
 <footer class="footer">

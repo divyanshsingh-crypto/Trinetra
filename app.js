@@ -455,8 +455,8 @@ function filterAccommodations() {
 
   filteredAccom = accommodations.filter(a => {
     return (!state || a.state === state) &&
-           (!type || a.type === type) &&
-           (!budget || a.budget === budget);
+      (!type || a.type === type) &&
+      (!budget || a.budget === budget);
   });
 
   renderAccommodations();
@@ -700,4 +700,85 @@ document.addEventListener('DOMContentLoaded', () => {
   // Floating SOS tooltip
   const floatSOS = document.getElementById('floatingSOS');
   floatSOS.title = 'Emergency SOS – Click to go to SOS section';
+
+  // Registration form
+  initRegisterForm();
 });
+
+// ================================================================
+// REGISTRATION FORM – Google Sheets via Apps Script
+// ================================================================
+
+// ⚠️ REPLACE THIS URL with your deployed Google Apps Script Web App URL
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycaRLX9JqMs13xh_4yW2yPdxk8t9KLMYeImyA7YB2WeQk_amS8qqUiJ-2KaYmZtaVO/exec';
+
+function initRegisterForm() {
+  const form = document.getElementById('registerForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const dest = document.getElementById('regState').value;
+    const message = document.getElementById('regMessage').value.trim();
+    const consent = document.getElementById('regConsent').checked;
+    const feedback = document.getElementById('formFeedback');
+    const btn = document.getElementById('registerSubmitBtn');
+    const btnText = btn.querySelector('.btn-text');
+    const loader = document.getElementById('registerLoader');
+
+    // Validate
+    if (!name || !email || !message) {
+      showFeedback(feedback, '⚠️ Please fill in all required fields (Name, Email, Message).', 'error');
+      return;
+    }
+    if (!consent) {
+      showFeedback(feedback, '⚠️ Please agree to the terms to proceed.', 'error');
+      return;
+    }
+
+    // Loading state
+    btn.disabled = true;
+    btnText.style.display = 'none';
+    loader.style.display = 'inline';
+    feedback.className = 'form-feedback';
+    feedback.textContent = '';
+
+    try {
+      const payload = JSON.stringify({ name, email, phone, destination: dest, message });
+
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',       // Apps Script requires no-cors
+        headers: { 'Content-Type': 'text/plain' },
+        body: payload
+      });
+
+      // no-cors returns opaque response – treat as success if no network error
+      showFeedback(feedback,
+        '✅ Registration successful! Check your email for confirmation from TriNetra.',
+        'success'
+      );
+      form.reset();
+    } catch (err) {
+      console.error('Registration error:', err);
+      showFeedback(feedback,
+        '❌ Submission failed. Please email us directly at divyanshsingh7907@gmail.com or call +91 99367 12737.',
+        'error'
+      );
+    } finally {
+      btn.disabled = false;
+      btnText.style.display = 'inline';
+      loader.style.display = 'none';
+    }
+  });
+}
+
+function showFeedback(el, msg, type) {
+  el.className = 'form-feedback ' + type;
+  el.textContent = msg;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
