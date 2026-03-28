@@ -701,9 +701,84 @@ document.addEventListener('DOMContentLoaded', () => {
   const floatSOS = document.getElementById('floatingSOS');
   floatSOS.title = 'Emergency SOS – Click to go to SOS section';
 
+  // Custom state dropdown
+  initCustomDropdown();
+
   // Registration form
   initRegisterForm();
 });
+
+// ================================================================
+// CUSTOM DROPDOWN – Destination State
+// ================================================================
+function initCustomDropdown() {
+  const btn      = document.getElementById('regStateBtn');
+  const dropdown = document.getElementById('regStateDropdown');
+  const valSpan  = document.getElementById('regStateVal');
+  const hidden   = document.getElementById('regState');
+
+  if (!btn || !dropdown) return;
+
+  // Start in placeholder state
+  btn.classList.add('placeholder-active');
+
+  // Toggle open / close
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.contains('open');
+    closeDropdown();
+    if (!isOpen) openDropdown();
+  });
+
+  // Option click
+  dropdown.querySelectorAll('.custom-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const value = opt.dataset.value;
+      const label = opt.textContent.trim();
+
+      // Update display
+      valSpan.textContent = value ? label : 'Select a state…';
+      hidden.value = value;
+
+      // Highlight selected
+      dropdown.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+      if (value) opt.classList.add('selected');
+
+      // Placeholder styling
+      if (value) {
+        btn.classList.remove('placeholder-active');
+      } else {
+        btn.classList.add('placeholder-active');
+      }
+
+      closeDropdown();
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!btn.closest('.custom-select-wrap').contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDropdown();
+  });
+
+  function openDropdown() {
+    btn.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    dropdown.classList.add('open');
+  }
+
+  function closeDropdown() {
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    dropdown.classList.remove('open');
+  }
+}
 
 // ================================================================
 // REGISTRATION FORM – Google Sheets via Apps Script

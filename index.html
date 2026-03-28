@@ -625,18 +625,26 @@
             </div>
             <div class="form-group">
               <label for="regState">Destination State</label>
-              <select id="regState" name="destination">
-                <option value="">Select a state…</option>
-                <option>Assam</option>
-                <option>Meghalaya</option>
-                <option>Arunachal Pradesh</option>
-                <option>Nagaland</option>
-                <option>Manipur</option>
-                <option>Tripura</option>
-                <option>Mizoram</option>
-                <option>Sikkim</option>
-                <option>Multiple States</option>
-              </select>
+              <div class="custom-select-wrap" id="regStateWrap">
+                <button type="button" class="custom-select-btn" id="regStateBtn" aria-haspopup="listbox" aria-expanded="false">
+                  <span class="custom-select-val" id="regStateVal">Select a state…</span>
+                  <svg class="custom-select-arrow" viewBox="0 0 16 16" fill="currentColor"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+                </button>
+                <ul class="custom-select-dropdown" id="regStateDropdown" role="listbox">
+                  <li class="custom-option placeholder" data-value="">Select a state…</li>
+                  <li class="custom-option" data-value="Assam">🌿 Assam</li>
+                  <li class="custom-option" data-value="Meghalaya">⛰️ Meghalaya</li>
+                  <li class="custom-option" data-value="Arunachal Pradesh">🏔️ Arunachal Pradesh</li>
+                  <li class="custom-option" data-value="Nagaland">🌄 Nagaland</li>
+                  <li class="custom-option" data-value="Manipur">🏞️ Manipur</li>
+                  <li class="custom-option" data-value="Tripura">🏛️ Tripura</li>
+                  <li class="custom-option" data-value="Mizoram">🌿 Mizoram</li>
+                  <li class="custom-option" data-value="Sikkim">❄️ Sikkim</li>
+                  <li class="custom-option" data-value="Multiple States">🗺️ Multiple States</li>
+                </ul>
+                <!-- Hidden input to carry the value -->
+                <input type="hidden" name="destination" id="regState" />
+              </div>
             </div>
           </div>
           <div class="form-group full-width">
